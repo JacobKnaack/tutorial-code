@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div id="chat-container">
+      <div class="conversations">
+        <div id="conversation-data"></div>
+      </div>
+      <div class="messaging-container">
+        <div id="msgs" class="messages">
+
+        </div>
+        <form id="message-form" class="input-container">
+          <input id="message-input" type="text" placeholder="Message">
+          <i class="fa fa-comment" aria-hidden="true"></i>
+        </form>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var chats = [
+        { "name": "richie" },
+        { "name": "pennywise"  },
+      ];
+      var messages = [
+        {
+          "id": "richie",
+          "sender": "richie",
+          "content": "Hey want to go playing in the rain this morning!"
+        },
+        {
+          "id": "pennywise",
+          "sender": "pennywise",
+          "content": "Hey sorry about scaring you and your friends, I'm actually really friendly!"
+        },
+        {
+          "id": "richie",
+          "sender": "me",
+          "content": "Whoa no, don't you think we should watch out for that crazy clown guy?"
+        },
+        {
+          "id": "pennywise",
+          "sender": "me",
+          "content": "Yeah right, you probably eat little kids or something."
+        }
+      ];
+
+      var selectedChat = "";
+
+      function populateChatMenu () {
+        var menuEls = "";
+        for (var item in chats) {
+          menuEls += "<p id="+ chats[item].name +" class=chat-item onclick='selectChat(\"" + chats[item].name +"\")'><i class='fa fa-user' aria-hidden='true'></i> " + chats[item].name + "</p>";
+        }
+        document.getElementById("conversation-data").innerHTML = menuEls;
+      }
+
+      function populateMessageContainer(id) {
+        var messageEls = "";
+        for (var message in messages) {
+          if ( messages[message].id === id ) {
+            messageEls += "<div id=" + messages[message].sender + " class='message'> <i class='fa fa-user' aria-hidden='true'></i><p>" + messages[message].content + "</p></div>"
+          }
+        }
+        document.getElementById("msgs").innerHTML = messageEls;
+      }
+
+      function selectChat(id) {
+        for (var item in chats) {
+          if(chats[item].name === id) {
+            selectedChat = id;
+            populateMessageContainer(chats[item].name);
+          }
+        }
+      }
+
+      populateChatMenu();
+      selectChat('richie');      
+    </script>
+  </body>
+</html>
