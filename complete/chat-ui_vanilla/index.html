@@ -12,7 +12,10 @@
   <body>
     <div id="chat-container">
       <div class="conversations">
-        <i class="fa fa-plus-square-o add-conversation" aria-hidden="true"></i>
+        <i class="fa fa-plus-square-o add-conversation"
+           aria-hidden="true"
+           onclick="toggleConversationForm()">
+        </i>
         <div id="conversation-data"></div>
       </div>
       <div class="messaging-container">
@@ -35,6 +38,18 @@
       </div>
     </div>
 
+    <div id="conversationFormContainer" class="form hidden">
+      <form id="conversationForm" class="modalForm">
+        <input id="searchField"
+               type="text"
+               placeholder="Search for users: ">
+        <div id="searchResults"></div>
+        <div class="btns">
+          <input class="searchBtn" type="button" value="close" onclick="toggleConversationForm()">
+        </div>
+      </form>
+    </div>
+
     <script>
       var chats = [
         {
@@ -53,7 +68,7 @@
           "contact-info": {
             "phone": "(415)-536-7583",
             "email": "richie@yahoo.com",
-            "location": "Dairy"
+            "location": "Derry, Maine"
           }
         },
         {
@@ -65,6 +80,15 @@
             "location": "???"
           }
         },
+        {
+          "id": "stan",
+          "name": "Stanley Uris",
+          "contact-info": {
+            "phone": "(415)-738-8273",
+            "email": "stantheman@gmail.com",
+            "location": "Derry, Maine"
+          }
+        }
       ];
       var messages = [
         {
@@ -113,6 +137,7 @@
 
       // function for generating message elements and adding them to msgs div
       function populateMessageContainer (id) {
+        sortMessages();
         var messageEls = "";
         for (var message in messages) {
           if ( messages[message].id === id ) {
@@ -124,7 +149,6 @@
 
       // functoin for iterating through users list and adding information to html
       function populateContactInfo(id) {
-        console.log(id);
         for (var object in users) {
           if (users[object].id === id) {
             document.getElementById("contactName").innerHTML = "<i class='fa fa-user' aria-hidden='true'></i>" + users[object].name;
@@ -134,8 +158,6 @@
 
       // sorts messages, sets selectedChat variable, and switches the selected class in the chat Menu
       function selectChat (id) {
-        sortMessages();
-
         for (var item in chats) {
           if(chats[item].id === id) {
             toggleSelectedClass(id);
@@ -157,10 +179,28 @@
         messages.push({
           "id": selectedChat,
           "sender": "me",
-          "content": text
+          "content": text,
+          "created_at": new Date()
         });
         populateMessageContainer(selectedChat);
         document.getElementById("message-form").reset();
+      }
+
+      function addUser(userId) {
+        for ( var item in chats) {
+          if ( chats[item].id === userId) {
+            alert("this user is already in your chat menu");
+            return;
+          } 
+        }
+
+        chats.push({
+          "id": userId,
+          "name": userId.charAt(0).toUpperCase() + userId.slice(1)
+        });
+        toggleConversationForm();
+        populateChatMenu();
+        selectChat(userId);
       }
 
       function toggleSelectedClass (elId) {
@@ -173,6 +213,30 @@
         element.classList.add('selected');
       }
 
+      function toggleConversationForm() {
+        var modalForm = document.querySelector(".form.hidden");
+        var formEl = document.getElementById("conversationFormContainer");
+
+        if(modalForm) {
+          modalForm.classList.remove("hidden");
+        } else {
+          formEl.classList.add("hidden");
+          document.getElementById("conversationForm").reset();
+          document.getElementById('searchResults').innerHTML = "";
+        }
+      }
+
+      document.getElementById("searchField").addEventListener("input", function(e) {
+        document.getElementById("searchResults").innerHTML = "";
+        for ( var item in users ) {
+          if ( users[item].id.includes(this.value.toLowerCase()) ) {
+            document.getElementById("searchResults").innerHTML += "<p class='usersResult' onclick='addUser(\"" + users[item].id +"\")'>" + users[item].name + "</p>"
+          }
+          if ( document.getElementById("searchField").value.length == 0) {
+            document.getElementById("searchResults").innerHTML = "";
+          } 
+        }
+      });
       populateChatMenu();
       selectChat('richie');
     </script>

@@ -10,6 +10,73 @@ body {
   font-family: 'Montserrat', sans-serif; 
 }
 
+#conversationFormContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modalForm {
+  width: 50%;
+  height: 40%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 5px;
+  box-shadow: 8px 8px 8px #000000;
+}
+
+#searchResults {
+  height: calc(90% - 50px);
+  width: 90%;
+  margin: 0 auto;
+}
+
+#searchField {
+  width: 70%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 120%;
+  margin: 10px auto;
+  border: none;
+  border-bottom: thin solid #ECEBF9;
+  outline: none;
+}
+
+.btns {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.searchBtn {
+  border: none;
+  outline: none;
+}
+
+.searchBtn:hover {
+  color: #ECEBF9;
+}
+
+.usersResult {
+  width: 70%;
+  margin: 10px auto;
+  cursor: pointer;
+}
+
 #chat-container {
   width: 100%;
   height: 100%;
@@ -78,10 +145,11 @@ body {
   justify-content: flex-end;
 }
 
+/* Changed justify content to felx-start for better pagination */
 .message {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 85%;
   margin: 0 auto;
 }
@@ -103,11 +171,11 @@ body {
   padding: 5px;
   margin-left: 5px;
   margin-right: 5px;
-  width: calc(100% - 40px); 
 }
 
 #me {
   flex-direction: row-reverse !important;
+  text-align: right;
 }
 
 #me p {
