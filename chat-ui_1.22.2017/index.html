@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title>Chat App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <title>Tricked Out Chat</title>
   </head>
   <body>
     <div id="chat-container">
       <div class="conversations">
-        <i class="fa fa-plus-square-o add-conversation" aria-hidden="true"></i>
         <div id="conversation-data"></div>
       </div>
       <div class="messaging-container">
@@ -20,11 +18,11 @@
 
         </div>
         <form id="message-form" class="input-container">
-          <input id="message-input" type="text" placeholder="Message" >
-          <i class="fa fa-comment send-btn" onclick="sendMessage()" aria-hidden="true" ></i>
+          <input id="message-input" type="text" placeholder="Message">
+          <i class="fa fa-comment" aria-hidden="true" onclick="sendMessage()"></i>
         </form>
       </div>
-      <div id="contactInfo-side" >
+      <div id="contactInfo-side">
         <div class="nameContainer">
           <div class="contactMenu">
 
@@ -35,36 +33,30 @@
       </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
       var chats = [
-        {
-          "id": "richie",
-          "name": "Richie"
-        },
-        { 
-          "id": "pennywise",
-          "name": "Pennywise"  
-        },
+        { "name": "richie" },
+        { "name": "pennywise"  },
       ];
       var users = [
         {
-          "id": "richie",
-          "name": "Richie Tozier",
-          "contact-info": {
-            "phone": "(415)-536-7583",
-            "email": "richie@yahoo.com",
-            "location": "Dairy"
-          }
-        },
-        {
-          "id": "pennywise",
-          "name": "Pennywise The Dancing Clown",
-          "contact-info": {
-            "phone": "(415)-666-6666",
-            "email": "immaeatyou@yahoo.com",
-            "location": "???"
-          }
-        },
+         "id": "richie",
+         "name": "Richie Tozier",
+         "contact-info": {
+           "phone": "(415)-536-7583",
+           "email": "richie@yahoo.com",
+           "location": "Dairy"
+         }
+       },
+       {
+         "id": "pennywise",
+         "name": "Pennywise The Dancing Clown",
+         "contact-info": {
+           "phone": "(415)-666-6666",
+           "email": "immaeatyou@yahoo.com",
+           "location": "???"
+         }
+       },
       ];
       var messages = [
         {
@@ -95,58 +87,43 @@
 
       var selectedChat = "";
 
-      // explain the sort function and the supplied comparison function
       function sortMessages() {
         messages.sort( function(a, b) {
           return a.created_at - b.created_at;
-        })
+        });
       }
 
-      // function for generting elements and adding them to conversation-data div
       function populateChatMenu () {
         var menuEls = "";
         for (var item in chats) {
-          menuEls += "<div id="+ chats[item].id +" class=chat-item onclick='selectChat(\"" + chats[item].id +"\")'><i class='fa fa-user' aria-hidden='true'></i> " + chats[item].name + "<div id='contactInfo-small'><i class='fa fa-phone' aria-hidden='true'></i><i class='fa fa-envelope' aria-hidden='true'></i><i class='fa fa-map-marker' aria-hidden='true'></i></div></div>";
+          menuEls += "<p id="+ chats[item].name +" class=chat-item onclick='selectChat(\"" + chats[item].name +"\")'><i class='fa fa-user' aria-hidden='true'></i> " + chats[item].name + "</p>";
         }
         document.getElementById("conversation-data").innerHTML = menuEls;
       }
 
-      // function for generating message elements and adding them to msgs div
-      function populateMessageContainer (id) {
+      function populateMessageContainer(id) {
         var messageEls = "";
         for (var message in messages) {
           if ( messages[message].id === id ) {
             messageEls += "<div id=" + messages[message].sender + " class='message'> <i class='fa fa-user' aria-hidden='true'></i><p>" + messages[message].content + "</p></div>"
-          } 
-        } 
+          }
+        }
         document.getElementById("msgs").innerHTML = messageEls;
       }
 
-      // functoin for iterating through users list and adding information to html
-      function populateContactInfo(id) {
-        console.log(id);
-        for (var object in users) {
-          if (users[object].id === id) {
-            document.getElementById("contactName").innerHTML = "<i class='fa fa-user' aria-hidden='true'></i>" + users[object].name;
-          }
-        }
-      }
-
-      // sorts messages, sets selectedChat variable, and switches the selected class in the chat Menu
-      function selectChat (id) {
+      function selectChat(id) {
         sortMessages();
 
         for (var item in chats) {
-          if(chats[item].id === id) {
+          if(chats[item].name === id) {
             toggleSelectedClass(id);
             selectedChat = id;
-            populateContactInfo(id);
-            populateMessageContainer(chats[item].id);
+            populateMessageContainer(chats[item].name);
           }
         }
       }
 
-      function sendMessage () {
+      function sendMessage() {
         var text = document.getElementById("message-input").value;
 
         if (text.length === 0) {
@@ -157,14 +134,16 @@
         messages.push({
           "id": selectedChat,
           "sender": "me",
-          "content": text
+          "content": text,
+          "created_at": new Date()
         });
+
         populateMessageContainer(selectedChat);
         document.getElementById("message-form").reset();
       }
 
       function toggleSelectedClass (elId) {
-        var selected = document.querySelector(".selected");
+        var selected = document.querySelector('.selected');
         if (selected) {
           selected.classList.remove("selected");
         }
