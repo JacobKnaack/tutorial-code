@@ -226,6 +226,11 @@
         }
       }
 
+      document.querySelector('#message-form').addEventListener("submit", function (event) {
+        sendMessage();
+        event.preventDefault();
+      }, false);
+
       document.getElementById("searchField").addEventListener("input", function(e) {
         document.getElementById("searchResults").innerHTML = "";
         for ( var item in users ) {
