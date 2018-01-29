@@ -234,7 +234,7 @@
       document.getElementById("searchField").addEventListener("input", function(e) {
         document.getElementById("searchResults").innerHTML = "";
         for ( var item in users ) {
-          if ( users[item].id.includes(this.value.toLowerCase()) ) {
+          if ( users[item].name.toLowerCase().includes(this.value.toLowerCase()) ) {
             document.getElementById("searchResults").innerHTML += "<p class='usersResult' onclick='addUser(\"" + users[item].id +"\")'>" + users[item].name + "</p>"
           }
           if ( document.getElementById("searchField").value.length == 0) {
