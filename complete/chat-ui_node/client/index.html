@@ -10,6 +10,7 @@
     <title>Tricked Out Chat</title>
     <!-- Add the socket.io client instance to expose the io global variable -->
     <script src='/socket.io/socket.io.js'></script>
+    <script src='/src/conversations.js'></script>
   </head>
   <body>
     <div id="chat-container">
@@ -54,209 +55,209 @@
 
     <script>
       // declare socket io variable for exposed socket client
-      const socket = io();
+      // const socket = io();
 
-      var chats = [
-        {
-          "id": "richie",
-          "name": "Richie"
-        },
-        { 
-          "id": "pennywise",
-          "name": "Pennywise"  
-        },
-      ];
-      var users = [
-        {
-          "id": "richie",
-          "name": "Richie Tozier",
-          "contact-info": {
-            "phone": "(415)-536-7583",
-            "email": "richie@yahoo.com",
-            "location": "Derry, Maine"
-          }
-        },
-        {
-          "id": "pennywise",
-          "name": "Pennywise The Dancing Clown",
-          "contact-info": {
-            "phone": "(415)-666-6666",
-            "email": "immaeatyou@yahoo.com",
-            "location": "???"
-          }
-        },
-        {
-          "id": "stan",
-          "name": "Stanley Uris",
-          "contact-info": {
-            "phone": "(415)-738-8273",
-            "email": "stantheman@gmail.com",
-            "location": "Derry, Maine"
-          }
-        }
-      ];
-      var messages = [
-        {
-          "id": "richie",
-          "sender": "richie",
-          "content": "Hey want to go playing in the rain this morning!",
-          "created_at": 1230
-        },
-        {
-          "id": "pennywise",
-          "sender": "pennywise",
-          "content": "Hey sorry about scaring you and your friends, I'm actually really friendly!",
-          "created_at": 940
-        },
-        {
-          "id": "richie",
-          "sender": "me",
-          "content": "Whoa no, don't you think we should watch out for that crazy clown guy?",
-          "created_at": 1234
-        },
-        {
-          "id": "pennywise",
-          "sender": "me",
-          "content": "Yeah right, you probably eat little kids or something.",
-          "created_at": 1050
-        }
-      ];
+      // var chats = [
+      //   {
+      //     "id": "richie",
+      //     "name": "Richie"
+      //   },
+      //   { 
+      //     "id": "pennywise",
+      //     "name": "Pennywise"  
+      //   },
+      // ];
+      // var users = [
+      //   {
+      //     "id": "richie",
+      //     "name": "Richie Tozier",
+      //     "contact-info": {
+      //       "phone": "(415)-536-7583",
+      //       "email": "richie@yahoo.com",
+      //       "location": "Derry, Maine"
+      //     }
+      //   },
+      //   {
+      //     "id": "pennywise",
+      //     "name": "Pennywise The Dancing Clown",
+      //     "contact-info": {
+      //       "phone": "(415)-666-6666",
+      //       "email": "immaeatyou@yahoo.com",
+      //       "location": "???"
+      //     }
+      //   },
+      //   {
+      //     "id": "stan",
+      //     "name": "Stanley Uris",
+      //     "contact-info": {
+      //       "phone": "(415)-738-8273",
+      //       "email": "stantheman@gmail.com",
+      //       "location": "Derry, Maine"
+      //     }
+      //   }
+      // ];
+      // var messages = [
+      //   {
+      //     "id": "richie",
+      //     "sender": "richie",
+      //     "content": "Hey want to go playing in the rain this morning!",
+      //     "created_at": 1230
+      //   },
+      //   {
+      //     "id": "pennywise",
+      //     "sender": "pennywise",
+      //     "content": "Hey sorry about scaring you and your friends, I'm actually really friendly!",
+      //     "created_at": 940
+      //   },
+      //   {
+      //     "id": "richie",
+      //     "sender": "me",
+      //     "content": "Whoa no, don't you think we should watch out for that crazy clown guy?",
+      //     "created_at": 1234
+      //   },
+      //   {
+      //     "id": "pennywise",
+      //     "sender": "me",
+      //     "content": "Yeah right, you probably eat little kids or something.",
+      //     "created_at": 1050
+      //   }
+      // ];
 
-      var selectedChat = "";
+      // var selectedChat = "";
 
-      // explain the sort function and the supplied comparison function
-      function sortMessages() {
-        messages.sort( function(a, b) {
-          return a.created_at - b.created_at;
-        })
-      }
+      // // explain the sort function and the supplied comparison function
+      // function sortMessages() {
+      //   messages.sort( function(a, b) {
+      //     return a.created_at - b.created_at;
+      //   })
+      // }
 
-      // function for generting elements and adding them to conversation-data div
-      function populateChatMenu () {
-        var menuEls = "";
-        for (var item in chats) {
-          menuEls += "<div id="+ chats[item].id +" class=chat-item onclick='selectChat(\"" + chats[item].id +"\")'><i class='fa fa-user' aria-hidden='true'></i> " + chats[item].name + "<div id='contactInfo-small'><i class='fa fa-phone' aria-hidden='true'></i><i class='fa fa-envelope' aria-hidden='true'></i><i class='fa fa-map-marker' aria-hidden='true'></i></div></div>";
-        }
-        document.getElementById("conversation-data").innerHTML = menuEls;
-      }
+      // // function for generting elements and adding them to conversation-data div
+      // function populateChatMenu () {
+      //   var menuEls = "";
+      //   for (var item in chats) {
+      //     menuEls += "<div id="+ chats[item].id +" class=chat-item onclick='selectChat(\"" + chats[item].id +"\")'><i class='fa fa-user' aria-hidden='true'></i> " + chats[item].name + "<div id='contactInfo-small'><i class='fa fa-phone' aria-hidden='true'></i><i class='fa fa-envelope' aria-hidden='true'></i><i class='fa fa-map-marker' aria-hidden='true'></i></div></div>";
+      //   }
+      //   document.getElementById("conversation-data").innerHTML = menuEls;
+      // }
 
-      // function for generating message elements and adding them to msgs div
-      function populateMessageContainer (id) {
-        sortMessages();
-        var messageEls = "";
-        for (var message in messages) {
-          if ( messages[message].id === id ) {
-            messageEls += "<div id=" + messages[message].sender + " class='message'> <i class='fa fa-user' aria-hidden='true'></i><p>" + messages[message].content + "</p></div>"
-          } 
-        } 
-        document.getElementById("msgs").innerHTML = messageEls;
-      }
+      // // function for generating message elements and adding them to msgs div
+      // function populateMessageContainer (id) {
+      //   sortMessages();
+      //   var messageEls = "";
+      //   for (var message in messages) {
+      //     if ( messages[message].id === id ) {
+      //       messageEls += "<div id=" + messages[message].sender + " class='message'> <i class='fa fa-user' aria-hidden='true'></i><p>" + messages[message].content + "</p></div>"
+      //     } 
+      //   } 
+      //   document.getElementById("msgs").innerHTML = messageEls;
+      // }
 
-      // function for iterating through users list and adding information to html
-      function populateContactInfo(id) {
-        for (var object in users) {
-          if (users[object].id === id) {
-            document.getElementById("contactName").innerHTML = "<i class='fa fa-user' aria-hidden='true'></i>" + users[object].name;
-          }
-        }
-      }
+      // // function for iterating through users list and adding information to html
+      // function populateContactInfo(id) {
+      //   for (var object in users) {
+      //     if (users[object].id === id) {
+      //       document.getElementById("contactName").innerHTML = "<i class='fa fa-user' aria-hidden='true'></i>" + users[object].name;
+      //     }
+      //   }
+      // }
 
-      // sorts messages, sets selectedChat variable, and switches the selected class in the chat Menu
-      function selectChat (id) {
-        for (var item in chats) {
-          if(chats[item].id === id) {
-            toggleSelectedClass(id);
-            selectedChat = id;
-            populateContactInfo(id);
-            populateMessageContainer(chats[item].id);
-          }
-        }
-      }
+      // // sorts messages, sets selectedChat variable, and switches the selected class in the chat Menu
+      // function selectChat (id) {
+      //   for (var item in chats) {
+      //     if(chats[item].id === id) {
+      //       toggleSelectedClass(id);
+      //       selectedChat = id;
+      //       populateContactInfo(id);
+      //       populateMessageContainer(chats[item].id);
+      //     }
+      //   }
+      // }
 
-      function sendMessage () {
-        var text = document.getElementById("message-input").value;
+      // function sendMessage () {
+      //   var text = document.getElementById("message-input").value;
 
-        if (text.length === 0) {
-          alert("please type a message");
-          return;
-        }
+      //   if (text.length === 0) {
+      //     alert("please type a message");
+      //     return;
+      //   }
 
-        // add socket.emit function where the within sendMessage()
-        socket.emit('chat message', text);
-        socket.on('chat message', function(msg){
-          console.log('client msg: ', msg);
-          document.getElementById('msgs').innerHTML += "<div id='me' class='message'> <i class='fa fa-user' aria-hidden='true'></i><p>" + text + "</p></div>"
-        });
+      //   // add socket.emit function where the within sendMessage()
+      //   socket.emit('chat message', text);
+      //   socket.on('chat message', function(msg){
+      //     console.log('client msg: ', msg);
+      //     document.getElementById('msgs').innerHTML += "<div id='me' class='message'> <i class='fa fa-user' aria-hidden='true'></i><p>" + text + "</p></div>"
+      //   });
 
-        // messages.push({
-        //   "id": selectedChat,
-        //   "sender": "me",
-        //   "content": text,
-        //   "created_at": new Date()
-        // });
-        // populateMessageContainer(selectedChat);
-        document.getElementById("message-form").reset();
-      }
+      //   // messages.push({
+      //   //   "id": selectedChat,
+      //   //   "sender": "me",
+      //   //   "content": text,
+      //   //   "created_at": new Date()
+      //   // });
+      //   // populateMessageContainer(selectedChat);
+      //   document.getElementById("message-form").reset();
+      // }
 
-      function addUser(userId) {
-        for ( var item in chats) {
-          if ( chats[item].id === userId) {
-            alert("this user is already in your chat menu");
-            return;
-          } 
-        }
+      // function addUser(userId) {
+      //   for ( var item in chats) {
+      //     if ( chats[item].id === userId) {
+      //       alert("this user is already in your chat menu");
+      //       return;
+      //     } 
+      //   }
 
-        chats.push({
-          "id": userId,
-          "name": userId.charAt(0).toUpperCase() + userId.slice(1)
-        });
-        toggleConversationForm();
-        populateChatMenu();
-        selectChat(userId);
-      }
+      //   chats.push({
+      //     "id": userId,
+      //     "name": userId.charAt(0).toUpperCase() + userId.slice(1)
+      //   });
+      //   toggleConversationForm();
+      //   populateChatMenu();
+      //   selectChat(userId);
+      // }
 
-      function toggleSelectedClass (elId) {
-        var selected = document.querySelector(".selected");
-        if (selected) {
-          selected.classList.remove("selected");
-        }
+      // function toggleSelectedClass (elId) {
+      //   var selected = document.querySelector(".selected");
+      //   if (selected) {
+      //     selected.classList.remove("selected");
+      //   }
 
-        var element = document.getElementById(elId);
-        element.classList.add('selected');
-      }
+      //   var element = document.getElementById(elId);
+      //   element.classList.add('selected');
+      // }
 
-      function toggleConversationForm() {
-        var modalForm = document.querySelector(".form.hidden");
-        var formEl = document.getElementById("conversationFormContainer");
+      // function toggleConversationForm() {
+      //   var modalForm = document.querySelector(".form.hidden");
+      //   var formEl = document.getElementById("conversationFormContainer");
 
-        if(modalForm) {
-          modalForm.classList.remove("hidden");
-        } else {
-          formEl.classList.add("hidden");
-          document.getElementById("conversationForm").reset();
-          document.getElementById('searchResults').innerHTML = "";
-        }
-      }
+      //   if(modalForm) {
+      //     modalForm.classList.remove("hidden");
+      //   } else {
+      //     formEl.classList.add("hidden");
+      //     document.getElementById("conversationForm").reset();
+      //     document.getElementById('searchResults').innerHTML = "";
+      //   }
+      // }
 
-      document.querySelector('#message-form').addEventListener("submit", function (event) {
-        sendMessage();
-        event.preventDefault();
-      }, false);
+      // document.querySelector('#message-form').addEventListener("submit", function (event) {
+      //   sendMessage();
+      //   event.preventDefault();
+      // }, false);
 
-      document.getElementById("searchField").addEventListener("input", function(e) {
-        document.getElementById("searchResults").innerHTML = "";
-        for ( var item in users ) {
-          if ( users[item].name.toLowerCase().includes(this.value.toLowerCase()) ) {
-            document.getElementById("searchResults").innerHTML += "<p class='usersResult' onclick='addUser(\"" + users[item].id +"\")'>" + users[item].name + "</p>"
-          }
-          if ( document.getElementById("searchField").value.length == 0) {
-            document.getElementById("searchResults").innerHTML = "";
-          } 
-        }
-      });
+      // document.getElementById("searchField").addEventListener("input", function(e) {
+      //   document.getElementById("searchResults").innerHTML = "";
+      //   for ( var item in users ) {
+      //     if ( users[item].name.toLowerCase().includes(this.value.toLowerCase()) ) {
+      //       document.getElementById("searchResults").innerHTML += "<p class='usersResult' onclick='addUser(\"" + users[item].id +"\")'>" + users[item].name + "</p>"
+      //     }
+      //     if ( document.getElementById("searchField").value.length == 0) {
+      //       document.getElementById("searchResults").innerHTML = "";
+      //     } 
+      //   }
+      // });
 
-      populateChatMenu();
-      selectChat('richie');
+      // populateChatMenu();
+      // selectChat('richie');
     </script>
   </body>
 </html>
