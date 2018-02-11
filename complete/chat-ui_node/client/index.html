@@ -17,6 +17,10 @@
   <body>
     <div id="chat-container">
       <div class="conversations">
+        <div id="userInfo">
+          <h4 id='userInfo-username'></h4>
+        </div>
+        
         <i class="fa fa-plus-square-o add-conversation"
            aria-hidden="true"
            onclick="toggleConversationForm()">
@@ -55,7 +59,7 @@
       </form>
     </div>
 
-    <div id='loginContainer' class='loginForm hidden'>
+    <div id='loginContainer' class='loginForm'>
       <form id='loginForm-el' onsubmit='login(setUser)' class="modalForm">
         <h2>Please Log In to Begin Chatting</h2>
         <input id='usernameInput'

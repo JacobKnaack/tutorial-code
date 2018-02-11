@@ -61,14 +61,13 @@ app.post('/login', (req, res) => {
     var newUser = {
       id: mockData.users.length + 1,
       userName: req.body.username,
-      created_at: new Date(),
-      is_active: true 
+      created_at: new Date()
     }
     mockData.users.push(newUser);
-    console.log(mockData);
     fs.writeFile('./client/src/db.json', JSON.stringify(mockData), function(err) {
-      console.log('err: ', err);
+      console.log('New User Added to db ::: Error: ', err);
     })
+    res.send(newUser);
   } catch (error) {
     res.send(error);
     console.error(error);
@@ -77,17 +76,17 @@ app.post('/login', (req, res) => {
 
 
 //sending messages to mongoose database!!
-app.post('/chat', async (req, res) => {
-  try {
-    var chat = new Conversation(req.body);
-    await chat.save();
-    res.sendStatus(200);
-    res.send(chat);
-  } catch (error) {
-    res.sendStatus(500);
-    console.error(error);
-  }
-});
+// app.post('/chat', async (req, res) => {
+//   try {
+//     var chat = new Conversation(req.body);
+//     await chat.save();
+//     res.sendStatus(200);
+//     res.send(chat);
+//   } catch (error) {
+//     res.sendStatus(500);
+//     console.error(error);
+//   }
+// });
 
 //listen for a connection
 io.on('connection', function(socket){
@@ -104,5 +103,5 @@ io.on('connection', function(socket){
 });
 
 http.listen(PORT, function(){
-  console.log(`listening on :::${PORT}`);
+  console.log(`Purple Chat Running on PORT:::${PORT}`);
 });

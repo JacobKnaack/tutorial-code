@@ -16,7 +16,7 @@ function toggleConversationForm() {
     modalForm.classList.remove("hidden");
   } else {
     formEl.classList.add("hidden");
-    document.getElementById("conversationForm").reset();
+    document.getElementById("conversationForm-el").reset();
     document.getElementById('searchResults').innerHTML = "";
   }
 }

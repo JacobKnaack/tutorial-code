@@ -63,6 +63,7 @@ body {
   height: calc(90% - 50px);
   width: 90%;
   margin: 0 auto;
+  overflow: scroll;
 }
 
 #searchField {

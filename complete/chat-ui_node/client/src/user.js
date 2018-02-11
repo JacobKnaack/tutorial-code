@@ -1,5 +1,3 @@
-var User = {}
-
 function login(callback) {
   var input = document.getElementById('usernameInput').value;
 
@@ -14,31 +12,35 @@ function login(callback) {
 }
 
 function setUser(userObject) {
-  User = userObject
+  localStorage.setItem('PurpleChatUser', userObject);
+  console.log('User Set: ', localStorage.getItem('PurpleChatUser'));
 };
 
-function toggleLoginForm() {
+function authCheck() {
   var modalForm = document.querySelector(".loginForm.hidden");
-  var formEl = document.getElementById('login');
+  var formEl = document.getElementById('loginContainer');
+  var UserLog = localStorage.getItem('PurpleChatUser');
 
-  if (modalForm) {
-    modalForm.classList.remove("hidden");
-  } else {
-    formEl.classList.add("hidden");
-    document.getElementById("conversationForm").reset();
-    document.getElementById('searchResults').innerHTML = "";
+  if (UserLog) {
+    document.getElementById('userInfo-username').innerHTML = JSON.parse(UserLog).userName;    
+    if (modalForm) {
+      modalForm.classList.remove("hidden");
+    } else {
+      formEl.classList.add("hidden");
+      document.getElementById("loginForm-el").reset();
+    }
   }
 }
 
 
 window.addEventListener('DOMContentLoaded', function() {
-  console.log(User);
-  if(!User.id) {
-    toggleLoginForm();
-  } 
+
+  authCheck();
 
   document.querySelector('#loginForm-el').addEventListener('submit', function(event){
     event.preventDefault();
+
+    authCheck();
   }, false);
 });
 
