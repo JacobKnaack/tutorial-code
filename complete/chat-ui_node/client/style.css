@@ -10,7 +10,7 @@ body {
   font-family: 'Montserrat', sans-serif; 
 }
 
-#conversationFormContainer {
+#conversationFormContainer, #loginContainer {
   position: fixed;
   top: 0;
   left: 0;
@@ -20,6 +20,27 @@ body {
   flex-direction: column;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+#loginForm-el {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#loginForm-el h2 {
+  margin-top: 50px;
+  text-align: center;
+}
+
+#loginForm-el input {
+  height: 100px;
+  width: 80%;
+  margin: 0 auto;
+  outline: none;
+  border: none;
+  font-size: 50px;
+  border-bottom: thin solid #4b0082;
 }
 
 .hidden {

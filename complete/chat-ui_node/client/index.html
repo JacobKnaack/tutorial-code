@@ -11,6 +11,8 @@
     <!-- Add the socket.io client instance to expose the io global variable -->
     <script src='/socket.io/socket.io.js'></script>
     <script src='/src/conversations.js'></script>
+    <script src='/src/chat.js'></script>
+    <script src='/src/user.js'></script>
   </head>
   <body>
     <div id="chat-container">
@@ -41,8 +43,8 @@
       </div>
     </div>
 
-    <div id="conversationFormContainer" class="form hidden">
-      <form id="conversationForm" class="modalForm">
+    <div id="conversationFormContainer" class="conversationForm hidden">
+      <form id="conversationForm-el" class="modalForm">
         <input id="searchField"
                type="text"
                placeholder="Search for users: ">
@@ -53,75 +55,18 @@
       </form>
     </div>
 
+    <div id='loginContainer' class='loginForm hidden'>
+      <form id='loginForm-el' onsubmit='login(setUser)' class="modalForm">
+        <h2>Please Log In to Begin Chatting</h2>
+        <input id='usernameInput'
+               type="text"
+               placeholder='UserName'>
+      </form>
+    </div>
+
     <script>
       // declare socket io variable for exposed socket client
       // const socket = io();
-
-      // var chats = [
-      //   {
-      //     "id": "richie",
-      //     "name": "Richie"
-      //   },
-      //   { 
-      //     "id": "pennywise",
-      //     "name": "Pennywise"  
-      //   },
-      // ];
-      // var users = [
-      //   {
-      //     "id": "richie",
-      //     "name": "Richie Tozier",
-      //     "contact-info": {
-      //       "phone": "(415)-536-7583",
-      //       "email": "richie@yahoo.com",
-      //       "location": "Derry, Maine"
-      //     }
-      //   },
-      //   {
-      //     "id": "pennywise",
-      //     "name": "Pennywise The Dancing Clown",
-      //     "contact-info": {
-      //       "phone": "(415)-666-6666",
-      //       "email": "immaeatyou@yahoo.com",
-      //       "location": "???"
-      //     }
-      //   },
-      //   {
-      //     "id": "stan",
-      //     "name": "Stanley Uris",
-      //     "contact-info": {
-      //       "phone": "(415)-738-8273",
-      //       "email": "stantheman@gmail.com",
-      //       "location": "Derry, Maine"
-      //     }
-      //   }
-      // ];
-      // var messages = [
-      //   {
-      //     "id": "richie",
-      //     "sender": "richie",
-      //     "content": "Hey want to go playing in the rain this morning!",
-      //     "created_at": 1230
-      //   },
-      //   {
-      //     "id": "pennywise",
-      //     "sender": "pennywise",
-      //     "content": "Hey sorry about scaring you and your friends, I'm actually really friendly!",
-      //     "created_at": 940
-      //   },
-      //   {
-      //     "id": "richie",
-      //     "sender": "me",
-      //     "content": "Whoa no, don't you think we should watch out for that crazy clown guy?",
-      //     "created_at": 1234
-      //   },
-      //   {
-      //     "id": "pennywise",
-      //     "sender": "me",
-      //     "content": "Yeah right, you probably eat little kids or something.",
-      //     "created_at": 1050
-      //   }
-      // ];
 
       // var selectedChat = "";
 
@@ -139,18 +84,6 @@
       //     menuEls += "<div id="+ chats[item].id +" class=chat-item onclick='selectChat(\"" + chats[item].id +"\")'><i class='fa fa-user' aria-hidden='true'></i> " + chats[item].name + "<div id='contactInfo-small'><i class='fa fa-phone' aria-hidden='true'></i><i class='fa fa-envelope' aria-hidden='true'></i><i class='fa fa-map-marker' aria-hidden='true'></i></div></div>";
       //   }
       //   document.getElementById("conversation-data").innerHTML = menuEls;
-      // }
-
-      // // function for generating message elements and adding them to msgs div
-      // function populateMessageContainer (id) {
-      //   sortMessages();
-      //   var messageEls = "";
-      //   for (var message in messages) {
-      //     if ( messages[message].id === id ) {
-      //       messageEls += "<div id=" + messages[message].sender + " class='message'> <i class='fa fa-user' aria-hidden='true'></i><p>" + messages[message].content + "</p></div>"
-      //     } 
-      //   } 
-      //   document.getElementById("msgs").innerHTML = messageEls;
       // }
 
       // // function for iterating through users list and adding information to html
@@ -224,19 +157,6 @@
 
       //   var element = document.getElementById(elId);
       //   element.classList.add('selected');
-      // }
-
-      // function toggleConversationForm() {
-      //   var modalForm = document.querySelector(".form.hidden");
-      //   var formEl = document.getElementById("conversationFormContainer");
-
-      //   if(modalForm) {
-      //     modalForm.classList.remove("hidden");
-      //   } else {
-      //     formEl.classList.add("hidden");
-      //     document.getElementById("conversationForm").reset();
-      //     document.getElementById('searchResults').innerHTML = "";
-      //   }
       // }
 
       // document.querySelector('#message-form').addEventListener("submit", function (event) {

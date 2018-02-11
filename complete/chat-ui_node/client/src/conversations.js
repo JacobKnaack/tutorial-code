@@ -4,12 +4,12 @@ function getUsers(callback) {
     if (request.readyState == 4 && request.status == 200)
       callback(request.response);
   }
-  request.open("GET", 'http://localhost:3000/mockUsers', true);
+  request.open("GET", 'http://localhost:3000/mockUsers/', true);
   request.send(null);
 };
 
 function toggleConversationForm() {
-  var modalForm = document.querySelector(".form.hidden");
+  var modalForm = document.querySelector(".conversationForm.hidden");
   var formEl = document.getElementById("conversationFormContainer");
 
   if(modalForm) {
@@ -22,7 +22,7 @@ function toggleConversationForm() {
 }
 
 function addConversation() {
-
+  // function for adding conversation elements to the conversation containers
 }
 
 window.addEventListener("DOMContentLoaded", function(){
@@ -32,10 +32,10 @@ window.addEventListener("DOMContentLoaded", function(){
     document.getElementById("searchField").addEventListener("input", function (e) {
       document.getElementById("searchResults").innerHTML = "";
       for ( var item in UserObject ) {
-        if ( UserObject[item].firstName.toLowerCase().includes(this.value.toLowerCase()) ) {
+        if ( UserObject[item].userName.toLowerCase().includes(this.value.toLowerCase()) ) {
           document.getElementById("searchResults").innerHTML += "\
             <p class='usersResult' onclick='addUser(\"" + UserObject[item].id +"\")'>"
-               + UserObject[item].firstName +
+               + UserObject[item].userName +
             "</p>"
         }
         if ( document.getElementById("searchField").value.length == 0) {

@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -33,10 +34,49 @@ app.get('/mockUsers', (req, res) => {
   } catch (error) {
     res.sendStatus(500)
     res.send(error);
-    console.error('Server error: ', error);
+    console.error('Server Error: ', error);
   }
 });
 
+//fetching messages from messages data
+app.get('/mockMessages/to:recipient_id/from:creator_id', (req, res) => {
+  try {
+    const conversationMessages = []
+    for (let message in mockData.messages) {
+      if (parseInt(req.params.recipient_id) === mockData.messages[message].recipient_id || parseInt(req.params.creator_id) === mockData.messages[message].creator_id) {
+        conversationMessages.push(mockData.messages[message])
+      }
+    }
+    res.set('Content-Type', 'application/json');
+    res.send(conversationMessages);
+  } catch (error) {
+    res.set('status', 500);
+    res.send(error);
+    console.error('Server Error: ', error )
+  }
+})
+
+app.post('/login', (req, res) => {
+  try {
+    var newUser = {
+      id: mockData.users.length + 1,
+      userName: req.body.username,
+      created_at: new Date(),
+      is_active: true 
+    }
+    mockData.users.push(newUser);
+    console.log(mockData);
+    fs.writeFile('./client/src/db.json', JSON.stringify(mockData), function(err) {
+      console.log('err: ', err);
+    })
+  } catch (error) {
+    res.send(error);
+    console.error(error);
+  }
+})
+
+
+//sending messages to mongoose database!!
 app.post('/chat', async (req, res) => {
   try {
     var chat = new Conversation(req.body);
