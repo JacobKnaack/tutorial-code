@@ -54,7 +54,7 @@ app.get('/mockMessages/to:recipient_id/from:creator_id', (req, res) => {
     res.send(error);
     console.error('Server Error: ', error )
   }
-})
+});
 
 app.post('/login', (req, res) => {
   try {
@@ -66,14 +66,29 @@ app.post('/login', (req, res) => {
     mockData.users.push(newUser);
     fs.writeFile('./client/src/db.json', JSON.stringify(mockData), function(err) {
       console.log('New User Added to db ::: Error: ', err);
-    })
+    });
     res.send(newUser);
   } catch (error) {
     res.send(error);
     console.error(error);
   }
-})
+});
 
+app.delete('/logout/:id', (req, res) => {
+  try {
+    var removedUser = mockData.users.filter(function(el) {
+      return el.id !== parseInt(req.params.id);
+    })
+    mockData.users = removedUser;
+    fs.writeFile('./client/src/db.json', JSON.stringify(mockData), function(err) {
+      console.log('User logged out and data destroyed ::: Error: ', err);
+    });
+    res.sendStatus(202);
+  } catch (error) {
+    res.send(error);
+    console.log(error);
+  }
+});
 
 //sending messages to mongoose database!!
 // app.post('/chat', async (req, res) => {
