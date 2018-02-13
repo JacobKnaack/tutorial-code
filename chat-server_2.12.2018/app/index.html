@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Chat Server</title>
+    <script src='/socket.io/socket.io.js'></script>
+    <script src='/chat.js'></script>
+  </head>
+  <body>
+    <div id="chatContainer">
+      <ul id='messages'></ul>
+      <form id='sendMessage'>
+        <input type="text" id='chatInput' autocomplete='off' placeholder='Type Message here and hit enter'>
+      </form>
+    </div>
+  </body>
+</html>

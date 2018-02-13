@@ -1,0 +1,32 @@
+#chatContainer {
+  height: 500px;
+  width: 50%;
+  border: thin solid black;
+  border-radius: 10px;
+  margin: auto auto;
+}
+
+#messages{
+  width: 100%;
+  height: 400px;
+  padding: 0;
+  margin: 0;
+}
+
+#chatInput {
+  width: calc(100% - 4px);
+  height: 90px;
+  border: none;
+  border-top: thin solid black;
+  outline: none;
+  font-size: 150%;
+  overflow-wrap: normal;
+  resize: none;
+  border-radius: 0 0 10px 10px;
+}
+
+.text {
+  list-style-type: none;
+  border-bottom: thin solid pink;
+  padding: 5px;
+}
