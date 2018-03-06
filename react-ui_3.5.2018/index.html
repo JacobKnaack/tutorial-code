@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Tutorial</title>
+    <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // declare a root element for react to inject itself into
+      const rootElement = document.getElementById('root')
+
+      // create our first component using React
+      class Heading extends React.Component {
+        render() {
+          return (
+            <div>
+              <h1>Hello World</h1>
+            </div>
+          )
+        }
+      }
+
+      // create a function to return our first component wrapped in some html
+      function App() {
+        return (
+          <div>
+            <Heading />
+          </div>
+        )
+      }
+
+      // Use ReactDOM to inject our App function into our rootElement
+      ReactDOM.render( <App />, rootElement)
+    </script>
+  </body>
+</html>
