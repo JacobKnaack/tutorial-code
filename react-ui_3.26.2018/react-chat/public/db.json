@@ -1,0 +1,32 @@
+{
+  "users":
+  [
+    {
+      "id": "0001",
+      "name": "Richie Tozier",
+      "contact-info": {
+        "phone": "(415)-536-7583",
+        "email": "richie@yahoo.com",
+        "location": "Derry, Maine"
+      }
+    },
+    {
+      "id": "0002",
+      "name": "Pennywise The Dancing Clown",
+      "contact-info": {
+        "phone": "(415)-666-6666",
+        "email": "immaeatyou@yahoo.com",
+        "location": "???"
+      }
+    },
+    {
+      "id": "0003",
+      "name": "Stanley Uris",
+      "contact-info": {
+        "phone": "(415)-738-8273",
+        "email": "stantheman@gmail.com",
+        "location": "Derry, Maine"
+      }
+    }
+  ]
+}
