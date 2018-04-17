@@ -27,7 +27,7 @@ class App extends Component {
               aria-hidden="true"
             />
           <div id="conversation-data">
-            {this.displayConversations(this.state.conversations)}
+            {this.displayConversations()}
           </div>
           </div>
           <div className="messaging-container">
@@ -68,7 +68,8 @@ class App extends Component {
     );
   }
 
-  displayConversations(usersArray) {
+  displayConversations() {
+    const usersArray = this.state.conversations
     const conversationsElements = []
 
     usersArray.map(user => {

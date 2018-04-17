@@ -1,0 +1,57 @@
+{
+  "users": [
+    {
+      "id": "0001",
+      "name": "Richie Tozier",
+      "username": "richie",
+      "contact-info": {
+        "phone": "(415)-536-7583",
+        "email": "richie@yahoo.com",
+        "location": "Derry, Maine"
+      }
+    },
+    {
+      "id": "0002",
+      "name": "Pennywise The Dancing Clown",
+      "username": "killerClown",
+      "contact-info": {
+        "phone": "(415)-666-6666",
+        "email": "immaeatyou@yahoo.com",
+        "location": "???"
+      }
+    },
+    {
+      "id": "0003",
+      "name": "Stanley Uris",
+      "username": "stanley",
+      "contact-info": {
+        "phone": "(415)-738-8273",
+        "email": "stantheman@gmail.com",
+        "location": "Derry, Maine"
+      }
+    }
+  ],
+  "messages": [
+    {
+      "sender": "0003",
+      "recipient": "0001",
+      "message": "Hey Richie",
+      "created_on": "2018-04-16T21:23:22.470Z",
+      "id": 1
+    },
+    {
+      "sender": "0001",
+      "recipient": "0003",
+      "message": "hey Stan",
+      "created_on": "2018-04-17T02:11:42.341Z",
+      "id": 2
+    },
+    {
+      "sender": "0003",
+      "recipient": "0002",
+      "message": "Hey Clown",
+      "created_on": "2018-04-17T02:12:27.135Z",
+      "id": 3
+    }
+  ]
+}
