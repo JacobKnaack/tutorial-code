@@ -1,7 +1,18 @@
 import React from 'react'
 import PostCard from './PostCard'
+import Comments from '../Comments'
 
 class FrontPage extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      comments: false,
+      commentLink: null,
+    }
+
+    this.toggleComments = this.toggleComments.bind(this)
+  }
+
   render() {
     return(
       <div className='frontPage'>
@@ -20,11 +31,24 @@ class FrontPage extends React.Component {
               imageUrl={imageUrl}
               score={post.data.score}
               permalink={post.data.permalink}
+              toggleComments={this.toggleComments}
             />
           )
         })}
+        <Comments
+          commentLink={this.state.commentLink}
+          open={this.state.comments}
+          closeComments={this.toggleComments}
+        />
       </div>
     )
+  }
+
+  toggleComments(link) {
+    this.setState({
+      comments: !this.state.comments,
+      commentLink: link,
+    })
   }
 }
 

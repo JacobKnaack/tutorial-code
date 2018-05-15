@@ -3,7 +3,7 @@ import Avatar from 'material-ui/Avatar'
 import FlatButton from 'material-ui/FlatButton'
 import { Card, CardHeader, CardMedia, CardText } from 'material-ui/Card'
 
-const PostCard = ({ title, author, url, imageUrl, score, permalink }) => {
+const PostCard = ({ title, author, url, imageUrl, score, permalink, toggleComments}) => {
   const cardStyle = {
     width: '70%',
     margin: '20px auto',
@@ -51,14 +51,13 @@ const PostCard = ({ title, author, url, imageUrl, score, permalink }) => {
         />
       </a>
       <CardMedia>
-        <img src={imageUrl} alt='preview image'/>
+        <img src={imageUrl} alt={`${imageUrl} preview`} />
       </CardMedia>
       <CardText>
-        <a href={`http://www.reddit.com/${permalink}`} target='_blank' style={linkStyle}>
-          <FlatButton
-            label='Comments'
-          />
-        </a>
+        <FlatButton
+          label='Comments'
+          onClick={() => toggleComments(permalink)}
+        />
       </CardText>
     </Card>
   )
